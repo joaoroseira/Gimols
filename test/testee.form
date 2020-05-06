@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Form version="1.7" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+  <Properties>
+    <Property name="defaultCloseOperation" type="int" value="3"/>
+  </Properties>
+  <SyntheticProperties>
+    <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
+  </SyntheticProperties>
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+  </AuxValues>
+
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <Component id="jScrollPane1" min="-2" pref="155" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="245" max="32767" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Component id="jScrollPane1" alignment="0" pref="300" max="32767" attributes="0"/>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+  <SubComponents>
+    <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+      <AuxValues>
+        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+      </AuxValues>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JTree" name="jTree1">
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="class FileSystemModel implements TreeModel {&#xa;  private String root;&#xa;&#xa;  private Vector listeners;&#xa;&#xa;  public FileSystemModel() {&#xa;&#xa;    root = System.getProperty(&quot;user.home&quot;);&#xa;    File tempFile = new File(root);&#xa;    root = tempFile.getParent();&#xa;&#xa;    listeners = new Vector();&#xa;  }&#xa;&#xa;  public Object getRoot() {&#xa;    return (new File(root));&#xa;  }&#xa;&#xa;  public Object getChild(Object parent, int index) {&#xa;    File directory = (File) parent;&#xa;    String[] directoryMembers = directory.list();&#xa;    return (new File(directory, directoryMembers[index]));&#xa;  }&#xa;&#xa;  public int getChildCount(Object parent) {&#xa;    File fileSystemMember = (File) parent;&#xa;    if (fileSystemMember.isDirectory()) {&#xa;      String[] directoryMembers = fileSystemMember.list();&#xa;      return directoryMembers.length;&#xa;    }&#xa;&#xa;    else {&#xa;&#xa;      return 0;&#xa;    }&#xa;  }&#xa;&#xa;  public int getIndexOfChild(Object parent, Object child) {&#xa;    File directory = (File) parent;&#xa;    File directoryMember = (File) child;&#xa;    String[] directoryMemberNames = directory.list();&#xa;    int result = -1;&#xa;&#xa;    for (int i = 0; i &lt; directoryMemberNames.length; ++i) {&#xa;      if (directoryMember.getName().equals(directoryMemberNames[i])) {&#xa;        result = i;&#xa;        break;&#xa;      }&#xa;    }&#xa;&#xa;    return result;&#xa;  }&#xa;&#xa;  public boolean isLeaf(Object node) {&#xa;    return ((File) node).isFile();&#xa;  }&#xa;&#xa;  public void addTreeModelListener(TreeModelListener l) {&#xa;    if (l != null &amp;&amp; !listeners.contains(l)) {&#xa;      listeners.addElement(l);&#xa;    }&#xa;  }&#xa;&#xa;  public void removeTreeModelListener(TreeModelListener l) {&#xa;    if (l != null) {&#xa;      listeners.removeElement(l);&#xa;    }&#xa;  }&#xa;&#xa;  public void valueForPathChanged(TreePath path, Object newValue) {&#xa;    &#xa;  }&#xa;&#xa;  public void fireTreeNodesInserted(TreeModelEvent e) {&#xa;    Enumeration listenerCount = listeners.elements();&#xa;    while (listenerCount.hasMoreElements()) {&#xa;      TreeModelListener listener = (TreeModelListener) listenerCount.nextElement();&#xa;      listener.treeNodesInserted(e);&#xa;    }&#xa;  }&#xa;&#xa;  public void fireTreeNodesRemoved(TreeModelEvent e) {&#xa;    Enumeration listenerCount = listeners.elements();&#xa;    while (listenerCount.hasMoreElements()) {&#xa;      TreeModelListener listener = (TreeModelListener) listenerCount.nextElement();&#xa;      listener.treeNodesRemoved(e);&#xa;    }&#xa;&#xa;  }&#xa;&#xa;  public void fireTreeNodesChanged(TreeModelEvent e) {&#xa;    Enumeration listenerCount = listeners.elements();&#xa;    while (listenerCount.hasMoreElements()) {&#xa;      TreeModelListener listener = (TreeModelListener) listenerCount.nextElement();&#xa;      listener.treeNodesChanged(e);&#xa;    }&#xa;&#xa;  }&#xa;&#xa;  public void fireTreeStructureChanged(TreeModelEvent e) {&#xa;    Enumeration listenerCount = listeners.elements();&#xa;    while (listenerCount.hasMoreElements()) {&#xa;      TreeModelListener listener = (TreeModelListener) listenerCount.nextElement();&#xa;      listener.treeStructureChanged(e);&#xa;    }&#xa;&#xa;  }&#xa;}"/>
+            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JTree(fileSystemDataModel)"/>
+            <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="FileSystemModel fileSystemDataModel = new FileSystemModel();"/>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="66"/>
+          </AuxValues>
+        </Component>
+      </SubComponents>
+    </Container>
+  </SubComponents>
+</Form>
