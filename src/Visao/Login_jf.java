@@ -7,6 +7,7 @@ package Visao;
 
 import Modelo.Usuario;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -19,12 +20,14 @@ import javax.swing.JOptionPane;
  * @author joaovitor
  */
 public class Login_jf extends javax.swing.JFrame {
-    Menu envia_usuario;
+
+   
     /**
      * Creates new form Login_jf
      */
     public Login_jf() {
         initComponents();
+        
     }
 
     /**
@@ -44,7 +47,7 @@ public class Login_jf extends javax.swing.JFrame {
         bt_login = new javax.swing.JButton();
         bt_register = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Gimols");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Login"));
@@ -138,47 +141,51 @@ public class Login_jf extends javax.swing.JFrame {
 
     private void bt_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_loginActionPerformed
         // TODO add your handling code here:
-        int vf=0;
+        int vf = 0;
         String home_diretorio = System.getProperty("user.home");
-        String path= home_diretorio+"/hicolm/";
+        String path = home_diretorio + "/hicolm/";
         String teste;
-        try {
-            FileReader fl = new FileReader(path+txt_user.getText()+"/useraccount.txt");
-            BufferedReader br = new BufferedReader(fl);
-            while(br.readLine() != null){
-                teste = br.readLine();
-                if(teste.equals(txt_user.getText()));
-                {
-                    vf++;
-                }
-                if(teste.equals(txt_password.getText()))
-                {
-                    vf++;
-                }
-            }
-            if(vf != 2){
-                JOptionPane.showMessageDialog(null, "incorrect username or password", "Warning",  JOptionPane.ERROR_MESSAGE);
-                txt_password.setText(null);
-                txt_user.setText(null);
-            }
-            else{
-                 JOptionPane.showMessageDialog(null, "Welcome!", "Gimols",  JOptionPane.ERROR_MESSAGE);
-                 envia_usuario = new Menu();
-                 envia_usuario.setVisible(true);
-                 envia_usuario.setState(Menu.NORMAL);
-                 envia_usuario.receber(txt_user.getText());
-                 new Menu().show();
-                 dispose();
-                 Usuario us = new Usuario();
-                 
-            }
-            
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Login_jf.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(Login_jf.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        File diret = new File(home_diretorio+"useraccount.txt");
         
+        if (!diret.exists()) {
+             try {
+                FileReader fl = new FileReader(path + txt_user.getText() + "/useraccount.txt");
+                BufferedReader br = new BufferedReader(fl);
+                while (br.readLine() != null) {
+                    teste = br.readLine();
+                    if (teste.equals(txt_user.getText()));
+                    {
+                        vf++;
+                    }
+                    if (teste.equals(txt_password.getText())) {
+                        vf++;
+                    }
+                }
+                if (vf != 2) {
+                    JOptionPane.showMessageDialog(null, "incorrect username or password", "Warning", JOptionPane.ERROR_MESSAGE);
+                    txt_password.setText(null);
+                    txt_user.setText(null);
+                } else {
+                    dispose();
+                    JOptionPane.showMessageDialog(null, "Welcome!", "Gimols", JOptionPane.INFORMATION_MESSAGE);
+                    
+                   
+                    new Menu().show();
+                    
+                    Usuario us = new Usuario();
+
+                }
+
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(Login_jf.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(Login_jf.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else{
+           JOptionPane.showMessageDialog(null, "user not yet registered", "Warning", JOptionPane.ERROR_MESSAGE);
+        }
+
+
     }//GEN-LAST:event_bt_loginActionPerformed
 
     private void bt_registerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_registerActionPerformed

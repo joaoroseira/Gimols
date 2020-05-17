@@ -44,7 +44,7 @@ public class Cadastro extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("register");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Register"));
